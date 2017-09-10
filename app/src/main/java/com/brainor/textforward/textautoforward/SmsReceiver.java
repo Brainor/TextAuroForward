@@ -17,7 +17,7 @@ public class SmsReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 //        if (intent.getAction().equals(SMS_RECEIVED) ) {
-        if (intent.getAction().equals(SMS_RECEIVED) && SubscriptionManager.from(context).getActiveSubscriptionInfo(intent.getIntExtra("subscription", -1)).getCarrierName().equals("中国电信")) {
+        if (intent.getAction().equals(SMS_RECEIVED) && SubscriptionManager.from(context).getActiveSubscriptionInfo(intent.getIntExtra("subscription", -1)).getCarrierName().toString().matches("(中国电信|China Telecom)")) {
             SmsMessage[] 短信序列s = android.provider.Telephony.Sms.Intents.getMessagesFromIntent(intent);
             if (短信序列s.length > 0) {
                 String 短信内容 = "";
