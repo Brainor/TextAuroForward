@@ -49,22 +49,22 @@ class NetworkConnect {
             }
         }
         //分析网页部分
-        String line, ResponseFromServer = "";
+        String line;StringBuilder ResponseFromServer = new StringBuilder();
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(request.getInputStream(), "gb2312"));//专门为这个网站设置charset
             while ((line = bufferedReader.readLine()) != null) {
-                ResponseFromServer += line + "\n";
+                ResponseFromServer.append(line).append("\n");
             }
         } catch (IOException e) {
             return e.getMessage();
         }
         request.disconnect();
-        return ResponseFromServer;
+        return ResponseFromServer.toString();
     }
 
     String 连接网络通(String userID, String Password) {
         String URL = "http://wlt.ustc.edu.cn/cgi-bin/ip";
-        Matcher matcher = Pattern.compile("(?<=name=ip\\svalue=)[\\d\\.]+(?=>)").matcher(网络连接(URL, ""));
+        Matcher matcher = Pattern.compile("(?<=name=ip\\svalue=)[\\d.]+(?=>)").matcher(网络连接(URL, ""));
         String IP地址;
         if (matcher.find()) IP地址 = matcher.group();
         else return "信息：当前未连接网络</td>";
